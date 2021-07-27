@@ -81,21 +81,6 @@ const filterPies = (array, instructor) => {
   return array.filter(pieObj => pieObj.instructor === instructor)
 }
 
-const handleButtonClick = (event) => {
-  if (event.target.id === "All") {
-    filterPies(pies)
-  } 
-  if (event.target.id === "Trinity") {
-    filterPies(pies, "Trinity")
-  }
-  if (event.target.id === "Aja") {
-    filterPies(pies, "Aja")
-  }
-  if (event.target.id === "Doc") {
-    console.log("Doc's button")
-  }
-}
-
 const pieBuilder = (piesArray) => {
   let domString = "";
   piesArray.forEach((pie) => {
@@ -112,6 +97,25 @@ const pieBuilder = (piesArray) => {
   });
 
   renderToDom("#piesContainer", domString)
+}
+
+const handleButtonClick = (event) => {
+  if (event.target.id === "All") {
+    pieBuilder(pies);
+  } 
+  if (event.target.id === "Trinity") {
+    const trinityPies = filterPies(pies, event.target.id);
+    pieBuilder(trinityPies);
+  }
+  if (event.target.id === "Aja") {
+    const ajaPies = filterPies(pies, event.target.id);
+    pieBuilder(ajaPies);
+  }
+  if (event.target.id === "Doc") {
+    const docPies = filterPies(pies, event.target.id);
+    pieBuilder(docPies);
+  }
+
 }
 
 // Handles the button events
