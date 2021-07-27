@@ -61,25 +61,81 @@ const pies = [
     },
   ];
 
-  const divElement = document.querySelector('#pies');
-  const trin = document.querySelector("#Trinity");
+  const renderToDom = (divId, textToPrint) => {
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = textToPrint;
+}
+// display all buttons on the DOM
+const buttons = () => {
+  const domString = `
+  <button type="button" class="btn btn-primary" id="All">All</button>
+  <button type="button" class="btn btn-secondary" id="Trinity">Trinity</button>
+  <button type="button" class="btn btn-success" id="Aja">Aja</button>
+  <button type="button" class="btn btn-danger" id="Doc">Doc</button>
+  `;
 
-  pies.forEach((pie) => {
-      divElement.innerHTML += `<h1>${pie.name}</h1>`;
-    });
-
-
-const renderToDom = (divId, textToRender) => {
-    const selectedDiv = document.querySelector(divId);
-    selectedDiv.innerHTML = textToRender;
+  renderToDom("#buttonContainer", domString);
 }
 
-trin.addEventListener('click', () => {
-    let domString = '';
+const filterPies = (array, instructor) => {
+  return array.filter(pieObj => pieObj.instructor === instructor)
+}
 
-    pies.forEach((pie) => {
-        domString += `<h1>${pie.ingredients}</h1>`;
-    });
+const handleButtonClick = (event) => {
+  if (event.target.id === "All") {
+    filterPies(pies)
+  } 
+  if (event.target.id === "Trinity") {
+    filterPies(pies, "Trinity")
+  }
+  if (event.target.id === "Aja") {
+    filterPies(pies, "Aja")
+  }
+  if (event.target.id === "Doc") {
+    console.log("Doc's button")
+  }
+}
 
-    renderToDom('#pies', domString);
-})
+const pieBuilder = (piesArray) => {
+  let domString = "";
+  piesArray.forEach((pie) => {
+    domString += `
+    <div class="card" style="width: 18rem;">
+      <img src="${pie.imageUrl}" class="card-img-top" alt="${pie.name}">
+      <div class="card-body">
+        <h5 class="card-title">${pie.name}</h5>
+        <p class="card-text">${pie.ingredients}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    `;
+  });
+
+  renderToDom("#piesContainer", domString)
+}
+
+// Handles the button events
+const buttonEvents = () => {
+  document.querySelector('#buttonContainer')
+    .addEventListener('click', handleButtonClick);
+}
+
+const init = () => {
+  // this starts the app
+  buttons(); // Put DOM Elements first
+  buttonEvents(); // Event Listeners after
+  pieBuilder(pies); // Adds the pies to the DOM by running the 'pies' array through the pieBuilder function
+};
+
+init();
+
+
+// trin.addEventListener('click', () => {
+//     let domString = '';
+
+//     pies.forEach((pie) => {
+//         domString += `<h1>${pie.ingredients}</h1>`;
+//     });
+
+//     renderToDom('#pies', domString);
+// })
