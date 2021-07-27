@@ -68,14 +68,15 @@ const pies = [
 // display all buttons on the DOM
 const buttons = () => {
   const domString = `
-  <button type="button" class="btn btn-primary" id="All">All</button>
-  <button type="button" class="btn btn-secondary" id="Trinity">Trinity</button>
-  <button type="button" class="btn btn-success" id="Aja">Aja</button>
-  <button type="button" class="btn btn-danger" id="Doc">Doc</button>
+  <button type="button" id="All">All</button>
+  <button type="button" id="Trinity">Trinity</button>
+  <button type="button" id="Aja">Aja</button>
+  <button type="button" id="Doc">Doc</button>
   `;
 
   renderToDom("#buttonContainer", domString);
 }
+
 // display form on the DOM
 const pieForm = () => {
   const domString = `
